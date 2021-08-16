@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<!-- Use the 'title' property to render a page title  -->
+	<title><%=title%></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    
+    <div class="panel panel-info">
+        <div class="panel-heading">Survey List</div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">ID:</th>
+                <th scope="col">Game Genre:</th>
+                <th scope="col">Days Per Year:</th>
+                <th scope="col">Age:</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% surveys.forEach(function(survey){ %>
+                <form method="post" action="/survey_list">
+                    <tr>
+                        <td>
+                            <div>
+                                <input type="text" name="surveyId" value="<%= survey.surveyId %>" />
+                                <input type="hidden" name="originalSurveyId" value="<%= survey.surveyId %>" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="text" name="gameGenre" value="<%= survey.gameGenre %>" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+
+                                <input type="text" name="daysPerYear" value="<%= survey.daysPerYear %>" /> </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="text" name="age" value="<%= survey.age %>" /> </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="submit" formaction="/survey_list?_method=PUT" value="Update" style="width: 200px" />
+
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="submit" formaction="/survey_list?_method=DELETE" value="Delete" style="width: 200px" />
+                            </div>
+                        </td>
+                    </tr>
+                </form>
+                <% })%>
+            </tbody>
+        </table>        
+        <% if(typeof msg != 'undefined') { %> <h2><%= msg %></h2> <% } %>
+    </div>
+    <div><a href="/">Home</a></div>
+</body>
+</html>
